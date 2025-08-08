@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microsoft Bing - Clone</title>
+    <style>
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            height: 100%;
+            font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
+            color: #fff;
+            overflow: hidden;
+            text-decoration: none;
+        }
+
+        .container {
+            background-image: url('https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5?q=80&w=1476&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        .top-nav {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            color: #e0e0e0;
+            font-size: 14px;
+        }
+
+        .top-nav-left, .top-nav-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .bing-text {
+            font-weight: 600;
+            font-size: 18px;
+            color: #fff;
+            margin-right: 15px;
+            margin-left: 16px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .logo{
+            position: absolute;
+            left: 10px;
+            width: 40px;
+            top: 14px;
+            cursor: pointer;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #e0e0e0;
+            padding: 5px 8px;
+            border-radius: 4px;
+            transition: background-color 0.2s, color 0.2s;
+        }
+
+        .nav-link:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: #fff;
+        }
+
+        .copilot{
+            position: relative;
+            top: 4px;
+            margin-right: 5px;
+        }
+
+        .nav-icon-text {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            color: #fff;
+            text-decoration: none;
+            padding: 5px 8px;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+
+        .nav-icon-text:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .nav-icon {
+            font-size: 18px;
+            color: #e0e0e0;
+        }
+
+        .search-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-grow: 1;
+            width: 100%;
+            padding-bottom: 80px;
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            max-width: 972px;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 10px 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .search-icon {
+            font-size: 20px;
+            color: #666;
+            margin-right: 10px;
+        }
+
+        .search-input {
+            flex-grow: 1;
+            border: none;
+            outline: none;
+            background: transparent;
+            font-size: 17px;
+            color: #333;
+            padding: 0 5px;
+        }
+
+        .search-input::placeholder {
+            color: #888;
+        }
+
+        .search-right-icons {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-left: 10px;
+        }
+
+        .icon-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 20px;
+            color: #666;
+            padding: 5px;
+            border-radius: 50%;
+            transition: background-color 0.2s;
+        }
+
+        .icon-btn:hover {
+            background-color: rgba(0, 0, 0, 0.08);
+        }
+
+        .icon-btn.squares {
+            width: 20px;
+            height: 20px;
+            position: relative;
+            background: none; 
+        }
+        .icon-btn.squares::before,
+        .icon-btn.squares::after,
+        .icon-btn.squares span::before,
+        .icon-btn.squares span::after {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background-color: #f00;
+            border-radius: 2px;
+        }
+        .icon-btn.squares::before { top: 0; left: 0; background-color: #4285F4; }
+        .icon-btn.squares::after { top: 0; right: 0; background-color: #EA4335; }
+        .icon-btn.squares span::before { bottom: 0; left: 0; background-color: #FBBC05; }
+        .icon-btn.squares span::after { bottom: 0; right: 0; background-color: #34A853; }
+
+
+        .news-carousel-wrapper {
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 15px 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            position: relative;
+            min-height: 180px;
+        }
+
+        .carousel-arrow {
+            background-color: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 20px;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            flex-shrink: 0;
+        }
+
+        .carousel-arrow:hover {
+            background-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .carousel-content {
+            display: flex;
+            gap: 15px;
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+            scroll-behavior: smooth;
+            flex-grow: 1;
+        }
+
+        .news-card {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            width: 200px;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+            color: inherit;
+            transition: background-color 0.2s;
+        }
+
+        .news-card:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .news-thumbnail {
+            width: 100%;
+            height: 100px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .news-headline {
+            padding: 10px;
+            font-size: 13px;
+            line-height: 1.4;
+            color: #fff;
+            flex-grow: 1;
+        }
+
+        .news-info-btn {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: background-color 0.2s, border-color 0.2s;
+            flex-shrink: 0;
+        }
+
+        .news-info-btn:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        @media (max-width: 1024px) {
+            .top-nav {
+                padding: 10px 20px;
+                font-size: 13px;
+            }
+            .bing-text {
+                font-size: 16px;
+            }
+            .nav-link {
+                padding: 3px 6px;
+            }
+            .nav-icon-text {
+                gap: 3px;
+                padding: 3px 6px;
+            }
+            .nav-icon {
+                font-size: 16px;
+            }
+            .search-box {
+                max-width: 90%;
+            }
+            .search-input {
+                font-size: 15px;
+            }
+            .icon-btn {
+                font-size: 18px;
+            }
+            .news-carousel-wrapper {
+                padding: 10px 20px;
+                min-height: 160px;
+            }
+            .news-card {
+                width: 180px;
+            }
+            .news-thumbnail {
+                height: 90px;
+            }
+            .news-headline {
+                font-size: 12px;
+                padding: 8px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .top-nav {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+                padding: 10px 10px;
+            }
+            .top-nav-left, .top-nav-right {
+                gap: 10px;
+            }
+            .top-nav-right {
+                width: 100%;
+                justify-content: center;
+            }
+            .bing-text {
+                font-size: 14px;
+                margin-right: 0;
+            }
+            .nav-link {
+                font-size: 11px;
+            }
+            .nav-icon-text {
+                font-size: 11px;
+            }
+            .search-section {
+                padding-bottom: 50px;
+            }
+            .search-box {
+                max-width: 95%;
+                padding: 8px 15px;
+            }
+            .search-input {
+                font-size: 14px;
+            }
+            .icon-btn {
+                font-size: 16px;
+            }
+            .news-carousel-wrapper {
+                flex-direction: column;
+                padding: 10px 15px;
+                gap: 10px;
+                min-height: unset;
+            }
+            .carousel-arrow {
+                width: 30px;
+                height: 30px;
+                font-size: 16px;
+            }
+            .carousel-content {
+                flex-wrap: wrap;
+                justify-content: center;
+                overflow-x: hidden;
+            }
+            .news-card {
+                width: 150px;
+                height: auto;
+            }
+            .news-thumbnail {
+                height: 70px;
+            }
+            .news-headline {
+                font-size: 11px;
+                padding: 5px;
+            }
+            .news-info-btn {
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="top-nav">
+            <div class="top-nav-left">
+                <a href="https://www.bing.com/#" target="_blank" class="bing-text"><svg class="logo" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <rect x="17" y="17" width="10" height="10" fill="#FEBA08"></rect> <rect x="5" y="17" width="10" height="10" fill="#05A6F0"></rect> <rect x="17" y="5" width="10" height="10" fill="#80BC06"></rect> <rect x="5" y="5" width="10" height="10" fill="#F25325"></rect> </g></svg>Microsoft Bing</a>
+                <a href="#" class="nav-link"><img class="copilot" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAKFSURBVHgBrVJBaxNBFP7ezGw2bZJmo/SkYCyICgoVvBQ85AcILUUvXkov4tFeBY3xD4gnbxIoXhTaglfR9OC5HnpSpCmtNMW2ydom2d3ZnedstKXBoz72zZth+b73fTMP+Meg482lN+3JTH5kGcxlZsAYRlpjP8Lu66+gnm66Ls3vvZ9qnCZQ6eK93Cl32skytw/L6TkFpp8Nij/twtGGc16mLEdVdQ8YIhDpYrSuhlHvQhR2oaOuPR+CtU9IfFbtAPkxB1TKIjo7WvEebnh/KSi63yvWDAlKWCBOK4Qw0C2i0BQh8g6F3giigstxLlO1kIWTO7i5uFgxJD4OQH+SEA+q/6W0sv3h6nyncaOzen+9bpzcXIQsNGcQs+joUNfUeP7b9IDJdpeUkO3MEslAzfh1Z2H9yb3O2p13lf5+a65rCgg5h4CzSIz0BJmqmnCbFSGYFSekyMCSQKVWjNl8dnupmZKPCX/aMZFtEFOGQowYl42w7sl46pq7NSnZIAWnQAlDNq0iXjn2WRQHMw7lyKHIKgg4sjtjW9pfn9UVtdOxkr0UJOk3WNlkJAOC/oNqOQmOyjLScC08RJdiZFILqe+GmpCtWpaSqhLGE0ggB2BRL071VtcqFa99tP3cO3MOmSBmFYbIaodja4aFIoZaodNvym9nq/gRP8VuAOyE3NpK4F65TKO5EnOgwJHNWBE0MSdiM//q8UUxNNd3l2rwdQd9gyRiMq6DwoQEFXskvB5kqQdRPGJR6hGVuo2TSRyKfV3njsbhT3tH4xkSYxZY7EN6/QGRLPVTsg2RD2onkzgUe/EL3+eZg0SWz9/KQhT64KxO5ZOMJbMWzaCL2fyjehP/I34BAVpFdp9EDL8AAAAASUVORK5CYII=" height="16" width="16" role="presentation" class="rms_img" data-bm="1">Copilot</a>
+                <a href="#" class="nav-link">Images</a>
+                <a href="#" class="nav-link">Videos</a>
+                <a href="#" class="nav-link">Maps</a>
+                <a href="#" class="nav-link">News</a>
+                <a href="#" class="nav-link">...</a>
+            </div>
+            <div class="top-nav-right">
+                <a href="#" class="nav-icon-text">Sign in <span class="nav-icon">&#128100;</span></a> <a href="#" class="nav-icon-text">Rewards <span class="nav-icon">&#127873;</span></a> <a href="#" class="nav-icon-text">Mobile <span class="nav-icon">&#128241;</span></a> <a href="#" class="nav-icon-text"><span class="nav-icon">&#9776;</span></a> </div>
+        </div>
+
+        <div class="search-section">
+            <div class="search-box">
+                <span class="search-icon">&#128269;</span> <input type="search" class="search-input" placeholder="Search the web">
+                <div class="search-right-icons">
+                    <button class="icon-btn">&#127897;</button> <button class="icon-btn">&#128247;</button> <button class="icon-btn squares"><span></span></button> </div>
+            </div>
+        </div>
+
+        <div class="news-carousel-wrapper">
+            <button class="carousel-arrow">&#9664;</button> <div class="carousel-content">
+                <a href="#" class="news-card">
+                    <img src="https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AA1J4dAf.img?w=600&h=450&m=6&x=120&y=120&s=280&d=280" alt="News Thumbnail" class="news-thumbnail">
+                    <p class="news-headline">India offers medical aid to Bangladesh ...</p>
+                </a>
+                <a href="#" class="news-card">
+                    <img src="https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AA1J2yYa.img?w=768&h=432&m=6&x=758&y=220&s=213&d=213" alt="News Thumbnail" class="news-thumbnail">
+                    <p class="news-headline">Malcolm Jamal Warner: Cosby Show star act...</p>
+                </a>
+                <a href="#" class="news-card">
+                    <img src="https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AA1J3mGH.img?w=768&h=432&m=6&x=428&y=79&s=188&d=188" alt="News Thumbnail" class="news-thumbnail">
+                    <p class="news-headline">India's vice president steps down, citing h...</p>
+                </a>
+                <a href="#" class="news-card">
+                    <img src="https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AA1J2lp7.img?w=600&h=450&m=6&x=120&y=120&s=280&d=280" alt="News Thumbnail" class="news-thumbnail">
+                    <p class="news-headline">Kerala CM Pinarayi Vijayan pays...</p>
+                </a>
+                <a href="#" class="news-card">
+                    <img src="https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AA1J0mAM.img?w=768&h=512&m=6" alt="News Thumbnail" class="news-thumbnail">
+                    <p class="news-headline">Foreign ministers of 28 countries call...</p>
+                </a>
+                <a href="#" class="news-card">
+                    <img src="https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AA1J1z49.img?w=600&h=450&m=6&x=120&y=120&s=280&d=280" alt="News Thumbnail" class="news-thumbnail">
+                    <p class="news-headline">Zelensky announces date for next roun...</p>
+                </a>
+                <a href="#" class="news-card">
+                    <img src="https://via.placeholder.com/200x100/d35400/ffffff?text=Image+7" alt="News Thumbnail" class="news-thumbnail">
+                    <p class="news-headline">What could discovery in ...</p>
+                </a>
+            </div>
+            <button class="carousel-arrow">&#9654;</button> <button class="news-info-btn">Info</button>
+        </div>
+    </div>
+</body>
+</html>
